@@ -83,6 +83,7 @@ public class DBUtil {
             psmt=conn.prepareStatement(user_inset_into_str);
             psmt.setString(1,username);
             psmt.setString(2,password);
+            //ddd
             count=psmt.executeUpdate();
         }catch (SQLException e) {
             e.printStackTrace();
