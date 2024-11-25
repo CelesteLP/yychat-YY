@@ -8,6 +8,8 @@ import com.yychat.model.User;
 import com.yychat.model.UserType;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,7 +44,7 @@ public class ClientLogin extends JFrame implements ActionListener{
 		dynamicBackgroundPanel.setPreferredSize(new Dimension(200, 105));
 		this.add(dynamicBackgroundPanel,"North");
 
-		jll=new JLabel(new ImageIcon("com.yychat.view/image/image9.jpg"));
+		jll=new JLabel(new ImageIcon("com.yychat.view/image/1.jpg"));
 		jll.setPreferredSize(new Dimension(50,50));
 
 		//创建登录界面中间部分的组件
@@ -75,6 +77,18 @@ public class ClientLogin extends JFrame implements ActionListener{
 		jp3=new JPanel();
 		jtp.add(jp2,"手机号码");
 		jtp.add(jp3,"电子邮箱");
+		jtp.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				int selectedIndex = jtp.getSelectedIndex();
+				if (selectedIndex == 1) { // "手机号码"选项卡的索引为1
+					showPhoneLoginPanel();
+				}else if(selectedIndex ==2){
+					showEmailLoginPanel2();
+				}
+			}
+		});
+
 		this.add(jtp,"Center");//选项卡面板添加到窗体中部
 
 		jb1=new JButton(new ImageIcon("com.yychat.view/image/login.gif"));//图片按钮
@@ -102,6 +116,93 @@ public class ClientLogin extends JFrame implements ActionListener{
 		this.setTitle("YY聊天");//设置窗体标题
 		this.setVisible(true);//窗体可视
 	}
+
+	private void showEmailLoginPanel2() {
+		jp3.setLayout(new BorderLayout());
+
+		// 创建电子邮箱登录界面的组件
+		JLabel jll0 = new JLabel(new ImageIcon("com.yychat.view/image/1.jpg"));
+		jll0.setPreferredSize(new Dimension(50, 50));
+
+		JLabel jl00 = new JLabel("", JLabel.CENTER);
+		JLabel jl022 = new JLabel("", JLabel.CENTER);
+		JLabel emailLabel = new JLabel("    电子邮箱:", JLabel.CENTER);
+		JTextField emailField = new JTextField();
+		JLabel passwordLabel = new JLabel("    YY密码:", JLabel.CENTER);
+		JPasswordField passwordField = new JPasswordField();
+		JLabel forgetPasswordLabel = new JLabel("    忘记密码", JLabel.CENTER);
+		forgetPasswordLabel.setForeground(Color.blue); // 设置字体蓝色
+		JLabel applyPasswordProtectionLabel = new JLabel("申请密码保护", JLabel.CENTER);
+		JButton clearButton = new JButton(new ImageIcon("com.yychat.view/image/clear.gif"));
+		JCheckBox invisibleLoginCheckBox = new JCheckBox("隐身登录");
+		JCheckBox rememberPasswordCheckBox = new JCheckBox("记住密码");
+
+		// 将组件添加到面板
+		JPanel inputPanel = new JPanel(new GridLayout(4, 3));
+		inputPanel.add(jl00);
+		inputPanel.add(jll0);
+		inputPanel.add(jl022);
+
+		inputPanel.add(emailLabel);
+		inputPanel.add(emailField);
+		inputPanel.add(clearButton); // 在面板中添加9个组件
+		inputPanel.add(passwordLabel);
+		inputPanel.add(passwordField);
+		inputPanel.add(forgetPasswordLabel);
+		inputPanel.add(invisibleLoginCheckBox);
+		inputPanel.add(rememberPasswordCheckBox);
+		inputPanel.add(applyPasswordProtectionLabel);
+
+		jp3.add(inputPanel, BorderLayout.CENTER);
+
+		// 添加按钮的监听器
+		clearButton.addActionListener(this);
+	}
+
+
+	private void showPhoneLoginPanel() {
+		jp2.setLayout(new BorderLayout());
+
+		// 创建手机号码登录界面的组件
+		JLabel jll0 = new JLabel(new ImageIcon("com.yychat.view/image/1.jpg"));
+		jll0.setPreferredSize(new Dimension(50, 50));
+
+		JLabel jl00 = new JLabel("", JLabel.CENTER);
+		JLabel jl022 = new JLabel("", JLabel.CENTER);
+		JLabel phoneLabel = new JLabel("    手机号码:", JLabel.CENTER);
+		JTextField phoneField = new JTextField();
+		JLabel passwordLabel = new JLabel("    YY密码:", JLabel.CENTER);
+		JPasswordField passwordField = new JPasswordField();
+		JLabel forgetPasswordLabel = new JLabel("    忘记密码", JLabel.CENTER);
+		forgetPasswordLabel.setForeground(Color.blue); // 设置字体蓝色
+		JLabel applyPasswordProtectionLabel = new JLabel("申请密码保护", JLabel.CENTER);
+		JButton clearButton = new JButton(new ImageIcon("com.yychat.view/image/clear.gif"));
+		JCheckBox invisibleLoginCheckBox = new JCheckBox("隐身登录");
+		JCheckBox rememberPasswordCheckBox = new JCheckBox("记住密码");
+
+		// 将组件添加到面板
+		JPanel inputPanel = new JPanel(new GridLayout(4, 3));
+		inputPanel.add(jl00);
+		inputPanel.add(jll0);
+		inputPanel.add(jl022);
+
+		inputPanel.add(phoneLabel);
+		inputPanel.add(phoneField);
+		inputPanel.add(clearButton); // 在面板中添加9个组件
+		inputPanel.add(passwordLabel);
+		inputPanel.add(passwordField);
+		inputPanel.add(forgetPasswordLabel);
+		inputPanel.add(invisibleLoginCheckBox);
+		inputPanel.add(rememberPasswordCheckBox);
+		inputPanel.add(applyPasswordProtectionLabel);
+
+		jp2.add(inputPanel, BorderLayout.CENTER);
+
+		// 添加按钮的监听器
+		clearButton.addActionListener(this);
+	}
+
+
 
 	public static void main(String[] args) {
 

@@ -46,8 +46,6 @@ public class DBUtil {
         }
     }
 
-
-
     public static boolean loginValidate(String username,String password) throws NoSuchAlgorithmException {
         boolean loginSuccess=false;
         String user_query_str="select * from user where username=? and password=?";
