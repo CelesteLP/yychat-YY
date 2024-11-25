@@ -1,7 +1,9 @@
 package com.yychat.control;
 
+import com.yychat.Utils.MD5Util;
 import com.yychat.model.Message;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,7 +48,7 @@ public class DBUtil {
 
 
 
-    public static boolean loginValidate(String username,String password){
+    public static boolean loginValidate(String username,String password) throws NoSuchAlgorithmException {
         boolean loginSuccess=false;
         String user_query_str="select * from user where username=? and password=?";
         PreparedStatement psmt;
@@ -75,7 +77,7 @@ public class DBUtil {
         }
         return seekSuccess;
     }
-    public static int insertIntoUser(String username,String password){
+    public static int insertIntoUser(String username,String password) {
         int count=0;
         String user_inset_into_str="insert into user(username,password) values(?,?)";
         PreparedStatement psmt;

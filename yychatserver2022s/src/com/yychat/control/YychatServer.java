@@ -1,9 +1,11 @@
 package com.yychat.control;
 import java.io.*;
 
+import com.yychat.Utils.MD5Util;
 import com.yychat.model.*;
 
 import java.net.*;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.HashMap;
 
@@ -22,8 +24,10 @@ public class YychatServer {
                 User user = (User) ois.readObject();
                 String userName = user.getUserName();
                 String password = user.getPassword();
+                //MD5加密
+                password = MD5Util.encrypt(password);
                 System.out.println(userName + " 连接成功: " + s);
-                System.out.println("服务端接收到的客户端登陆信息userName:" + userName + " password:" + password);
+                System.out.println("服务端接收到的客户端登陆信息userName:" + userName);
 
                 ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
                 Message mess = new Message();
@@ -64,6 +68,8 @@ public class YychatServer {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
     }
