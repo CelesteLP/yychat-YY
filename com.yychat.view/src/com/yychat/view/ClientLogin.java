@@ -38,6 +38,7 @@ public class ClientLogin extends JFrame implements ActionListener{
 	JPanel jp1,jp2,jp3;
 	JTabbedPane jtp;
 
+	int flag=0;
 	public ClientLogin(){
 
 		DynamicBackgroundPanel dynamicBackgroundPanel =new DynamicBackgroundPanel();
@@ -83,9 +84,13 @@ public class ClientLogin extends JFrame implements ActionListener{
 			public void stateChanged(ChangeEvent e) {
 				int selectedIndex = jtp.getSelectedIndex();
 				if (selectedIndex == 1) { // "手机号码"选项卡的索引为1
+					flag=1;
 					showPhoneLoginPanel();
 				}else if(selectedIndex ==2){
+					flag=2;
 					showEmailLoginPanel2();
+				}else if(selectedIndex==0){
+					flag=0;
 				}
 			}
 		});
@@ -220,33 +225,35 @@ public class ClientLogin extends JFrame implements ActionListener{
 		User user= new User();
 		user.setUserName(name);
 		user.setPassword(password);
+		if(flag==0){
+			if(arg0.getSource()==jb1)
+			{
+				user.setUserType(UserType.USER_LOGIN_VALIDATE);
 
-		if(arg0.getSource()==jb1)
-		{
-			user.setUserType(UserType.USER_LOGIN_VALIDATE);
+				Message mess=new YychatClientConnection().loginValidate1(user);
+				if(mess.getMessageType().equals(MessageType.LOGIN_VALIDATE_SUCCESS)) {
+					String allFriend = mess.getContent();
+					FriendList fl = new FriendList(name, allFriend);
+					hmFriendList.put(name, fl);
+					this.dispose();
+				}else {
+					JOptionPane.showMessageDialog(this,"密码错误,请重新登陆!");
+				}
+			}
+			if(arg0.getSource()==jb2) {
+				user.setUserType(UserType.USER_REGISTER);
+				if (new YychatClientConnection().registerUser(user)) {
+					JOptionPane.showMessageDialog(this, name + "注册成功!");
+				} else {
+					JOptionPane.showMessageDialog(this, name + "已存在,请重新注册!");
+				}
+			}else if (arg0.getSource() == jb4) {
+				// 清空输入框
+				jtf.setText("");
+				jpf.setText("");
+			}
+		}
 
-			Message mess=new YychatClientConnection().loginValidate1(user);
-			if(mess.getMessageType().equals(MessageType.LOGIN_VALIDATE_SUCCESS)) {
-				String allFriend = mess.getContent();
-				FriendList fl = new FriendList(name, allFriend);
-                hmFriendList.put(name, fl);
-				this.dispose();
-            }else {
-                JOptionPane.showMessageDialog(this,"密码错误,请重新登陆!");
-            }
-		}
-		if(arg0.getSource()==jb2) {
-           user.setUserType(UserType.USER_REGISTER);
-           if (new YychatClientConnection().registerUser(user)) {
-               JOptionPane.showMessageDialog(this, name + "注册成功!");
-           } else {
-               JOptionPane.showMessageDialog(this, name + "已存在,请重新注册!");
-           }
-		}else if (arg0.getSource() == jb4) {
-			// 清空输入框
-			jtf.setText("");
-			jpf.setText("");
-		}
 	}
 
 	private void sendMessage(Socket s, Message mess) {
