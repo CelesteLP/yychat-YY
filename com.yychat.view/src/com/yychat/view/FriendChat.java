@@ -6,10 +6,7 @@ import com.yychat.model.MessageType;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -69,6 +66,16 @@ public class FriendChat extends JFrame implements ActionListener,WindowListener 
 
 		this.addWindowListener(this);
 		this.setVisible(true);
+		// 添加键盘监听器
+		inputArea.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					// 模拟点击发送按钮
+					sendButton.doClick();
+				}
+			}
+		});
 	}
 
 	public static void main(String[] args){

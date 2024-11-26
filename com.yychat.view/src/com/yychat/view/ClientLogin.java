@@ -56,6 +56,7 @@ public class ClientLogin extends JFrame implements ActionListener{
 		jl3.setForeground(Color.blue);//设置字体蓝色
 		jl4=new JLabel("申请密码保护",JLabel.CENTER);
 		jb4=new JButton(new ImageIcon("com.yychat.view/image/clear.gif"));
+		jb4.addActionListener(this);
 		jtf=new JTextField();
 		jpf=new JPasswordField();
 		jc1=new JCheckBox("隐身登录");
@@ -241,6 +242,10 @@ public class ClientLogin extends JFrame implements ActionListener{
            } else {
                JOptionPane.showMessageDialog(this, name + "已存在,请重新注册!");
            }
+		}else if (arg0.getSource() == jb4) {
+			// 清空输入框
+			jtf.setText("");
+			jpf.setText("");
 		}
 	}
 

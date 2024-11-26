@@ -51,7 +51,7 @@ public class ClientReceiverThread extends Thread{
 				if(mess.getMessageType().equals(MessageType.COMMON_CHAT_MESSAGE)){
 					String receiver=mess.getReceiver();
 					String sender=mess.getSender();
-					FriendChat fc=(FriendChat)FriendList.hmFriendChat.get(receiver+"to"+sender);//???receiver??sender?????
+					FriendChat fc=(FriendChat)FriendList.hmFriendChat.get(receiver+"to"+sender);
 					if(fc!=null){
 						fc.append(mess);
 					}else
