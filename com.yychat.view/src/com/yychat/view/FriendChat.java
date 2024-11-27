@@ -71,6 +71,8 @@ public class FriendChat extends JFrame implements ActionListener,WindowListener 
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					// 阻止默认的换行行为
+					e.consume();
 					// 模拟点击发送按钮
 					sendButton.doClick();
 				}

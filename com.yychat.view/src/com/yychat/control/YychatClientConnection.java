@@ -14,7 +14,7 @@ public class YychatClientConnection {
 	public YychatClientConnection() {
 		try {
 			s=new Socket("127.0.0.1",3456);//创建Socket对象，和服务器建立连接
-
+            //s=new Socket("192.168.1.103",3456);
 			System.out.println("客户端连接成功: "+s);
 		} catch (IOException e) {
 			e.printStackTrace();
